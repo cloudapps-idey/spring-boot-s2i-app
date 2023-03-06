@@ -10,7 +10,8 @@ import java.nio.charset.Charset;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
+import org.apache.tomcat.util.http.fileupload.IOUtils;
+//import org.apache.logging.log4j.core.util.IOUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,31 +32,31 @@ public class CatFactService {
 
 	public String getCatFacts() throws IOException, JSONException {
 		JSONObject json = readJsonFromUrl(url);
-		logger.info(json.toString());
-		System.out.println("Test console log:" + json.toString());
-		logger.info("Environment value=" + testString);
 		return json.toString();
+		
 	}
 
-	private String readAll(Reader rd) throws IOException {
+	private static String readAll(Reader rd) throws IOException {
 		StringBuilder sb = new StringBuilder();
 		int cp;
 		while ((cp = rd.read()) != -1) {
-			sb.append((char) cp);
+		  sb.append((char) cp);
 		}
 		return sb.toString();
-	}
-
-	public JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
+	  }
+	
+	  public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
 		InputStream is = new URL(url).openStream();
 		try {
-			BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-			String jsonText = readAll(rd);
-			JSONObject json = new JSONObject(jsonText);
-			
-			return json;
+		  BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+		  String jsonText = readAll(rd);
+		  JSONObject json = new JSONObject( jsonText );
+		  return json;
 		} finally {
-			is.close();
+		  is.close();
 		}
+	  }
+
+	
 	}
-}
+

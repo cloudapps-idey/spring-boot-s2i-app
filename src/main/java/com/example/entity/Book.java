@@ -37,6 +37,9 @@ public class Book implements Serializable {
 	@Column(name="price")
 	private int price;
 
+	@Column(name="year")
+	private String year;
+
 	public int getId() {
 		return id;
 	}
@@ -91,6 +94,14 @@ public class Book implements Serializable {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
 	}
 
 	

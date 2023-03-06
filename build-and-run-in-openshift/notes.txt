@@ -33,3 +33,14 @@ s2i-app setup
 8. oc get route
 9. test : http://<route>/catfactservice/facts
           http://<route>/bookservice/books
+
+docker login registy.redhat.io 
+docker pull registry.redhat.io/rhel8/mysql-80:1
+docker run -d -p 3306:3306 -e MYSQL_USER=user1 -e MYSQL_PASSWORD=password -e MYSQL_DATABASE=bookstore -e MYSQL_ROOT_PASSWORD=password --name=mysql registry.redhat.io/rhel8/mysql-80
+cd /Users/indranidey/Documents/_0_1_helpers/cheat-sheet/OCP/QUICK-STARTS/configmap-secrets/spring-boot-s2i-app/build-and-run-in-openshift/mysql-container-setup
+docker cp create-book-table.sql mysql:/opt
+docker cp insert-book-data.sql mysql:/opt  
+docker exec mysql /bin/bash -c 'mysql -uuser1 -ppassword bookstore < /opt/create-book-table.sql' 
+docker exec mysql /bin/bash -c 'mysql -uuser1 -ppassword bookstore < /opt/insert-book-data.sql' 
+
+localhost
