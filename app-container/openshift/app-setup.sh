@@ -1,6 +1,6 @@
 create -f s2i-app.cm
 create -f s2i-app.sec
-oc new-app java8~https://github.com/IndraniDey1/spring-boot-s2i-app.git --name s2i-app
+oc new-app java8~https://github.com/cloudapps-idey/spring-boot-s2i-app.git --name s2i-app
 
 
 oc set env dc/s2i-app --from configmap/s2i-app.cm
