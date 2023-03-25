@@ -1,8 +1,0 @@
-Local mysql: simple-spring-boot-mysql-config
-http://localhost:8080/bookservice/books
-
-
-
-
-https://catfact.ninja/facts
-https://cat-fact.herokuapp.com/facts
