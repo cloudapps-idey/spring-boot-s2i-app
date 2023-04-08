@@ -9,4 +9,55 @@ java -jar target/spring-boot-s2i-app-0.0.1-SNAPSHOT.jar
              INVOKE URL
 ====================================================================
 http://localhost:8080/catfactservice/facts ( Use this for quick test )
+
+======================================================================
+            How to build image 
+=====================================================================
  
+Dockerfile containes this:
+
+FROM registry.access.redhat.com/ubi9/openjdk-11 
+ENV PORT 8080
+EXPOSE 8080
+COPY target/*.jar /opt/app.jar
+WORKDIR /opt
+CMD ["java", "-jar", "app.jar"]
+
+
+docker build -t idey/simple-spring-boot .
+docker run --name -p 8080:8080 s2i-app idey/simple-spring-boot
+(invoke url to verify)
+
+To Stop the container and delete image:
+docker ps
+docker ps -a
+docker stop <container-id>
+docker rm <container-id>
+docker rmi <image-name>  [ from docker ps -a identify the name exaple idey/simple-spring-boot]
+
+----------------------
+
+Start and Stop container
+
+docker stop  <container-id>
+docker start <container-id>
+
+=====================================================================
+                     Push to Quay
+=====================================================================
+
+docker login quay.io
+{username}
+{password}
+
+Create a repo in quay 
+idey1
+simple-spring-boot ( make it public )
+
+docker build -t quay.io/idey1/simple-spring-boot .
+docker image ( verify the image built)
+docker push quay.io/idey1/simple-spring-boot:latest
+
+=====================================================================
+         Use the image from quay to deploy to Openshift
+=====================================================================
